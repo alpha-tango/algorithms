@@ -1,3 +1,3 @@
- 
+
 Resources:
-Algorithms Unlocked, John Cormen
+Algorithms Unlocked, Thomas H. Cormen
