@@ -58,21 +58,15 @@ def merge_sort(unsorted_array)
     return unsorted_array
   else
     q = (p + r)/2
-    puts "start of left recursion, using #{unsorted_array[p..q]}"
     left_array = merge_sort(unsorted_array[p..q])
-    puts "start of right recursion, using #{unsorted_array[(q+1)..r]}"
     right_array = merge_sort(unsorted_array[(q+1)..r])
-    puts "calling merge on #{unsorted_array}"
     sorted_array = merge(left_array, right_array)
   end
-  puts "end of method, working array is #{sorted_array}"
   sorted_array
 
 end
 
 def merge(left_array, right_array)
-  puts "left array is #{left_array}"
-  puts "right array is #{right_array}"
   left_array<<10**10
   right_array<<10**10
   i = 0
@@ -93,15 +87,47 @@ def merge(left_array, right_array)
   sorted_array
 end
 
-puts "#{merge_sort(a)}"
-
 #merge sort has a higher runtime constant factor (significant for smaller arrays)
 #must make complete copies of the entire input array - if space is a concern,
 #don't use it.
 #but, runtime is Theta(n*lg(n))
 
 def quicksort(unsorted_array)
+  p=0
+  r=unsorted_array.length - 1
+
+  if p>=r
+    return unsorted_array
+  else
+    q = partition(unsorted_array)
+    unsorted_array[p..(q-1)] = quicksort(unsorted_array[p..(q-1)])
+    unsorted_array[(q+1)..r] = quicksort(unsorted_array[(q+1)..r])
+  end
+  unsorted_array
 end
 
 def partition(unsorted_array)
+  p = 0
+  r = unsorted_array.length - 1
+  q = p
+  u = p
+
+  while u <= r - 1
+    if unsorted_array[u] <= unsorted_array[r]
+      swap = unsorted_array[q]
+      unsorted_array[q] = unsorted_array[u]
+      unsorted_array[u] = swap
+      q += 1
+    end
+    u += 1
+  end
+  swap = unsorted_array[q]
+  unsorted_array[q] = unsorted_array[r]
+  unsorted_array[r] = swap
+  q
 end
+
+#quicksort has runtime of Theta(n**2) at worst and Theta(n*lg(n)) at best
+#(with better constant factors than merge sort)
+#p 56 discusses optimizing to make partitions more even
+#p 57 has a table of recaps best/worst times
