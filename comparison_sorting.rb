@@ -131,3 +131,7 @@ end
 #(with better constant factors than merge sort)
 #p 56 discusses optimizing to make partitions more even
 #p 57 has a table of recaps best/worst times
+#you can further optimize run times by hybridizing quicksort & insertion sort
+#optimal crossover is at about 20 elements
+#quicksort is fastest, but if you need to guard against worst-case behavior,
+#choose mergesort
